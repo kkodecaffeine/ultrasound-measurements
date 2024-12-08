@@ -25,26 +25,3 @@ class ImagePreprocessor:
         edges = cv2.dilate(edges, kernel, iterations=1)
 
         return edges
-
-# def enhance_contrast(image):
-#     """CLAHE를 사용한 이미지 대비 강화."""
-#     # 컬러 이미지를 그레이스케일로 변환
-#     # if len(image.shape) == 3:  # 컬러 이미지인 경우
-#     #     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-#     #
-#     # # uint8 데이터 타입으로 변환
-#     # if image.dtype != np.uint8:
-#     #     image = cv2.convertScaleAbs(image)
-#
-#     # CLAHE 적용
-#     clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
-#     return clahe.apply(image)
-#
-# def apply_gaussian_blur(image):
-#     """가우시안 블러 적용 (노이즈 제거)."""
-#     return cv2.GaussianBlur(image, (9, 9), 2)
-#
-# def binarize_image(image, threshold=150):
-#     """이미지를 이진화."""
-#     _, binary = cv2.threshold(image, 150, 255, cv2.THRESH_BINARY)
-#     return binary

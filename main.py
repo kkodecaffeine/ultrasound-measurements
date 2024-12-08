@@ -5,7 +5,7 @@ from visualization.display import Display
 
 def main():
     processor = UltrasoundImageProcessor()
-    image_path = "image2.jpg"
+    image_path = "image7.jpg"
     output_path = "masked_image.jpg"
 
     processed_image = processor.process_ultrasound(image_path, output_path, padding=30)

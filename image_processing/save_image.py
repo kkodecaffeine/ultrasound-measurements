@@ -1,12 +1,5 @@
 import cv2
 
-# def save_image(image, output_path):
-#     """이미지를 저장하는 함수"""
-#     cv2.imwrite(output_path, image)
-#     print(f"'{output_path}'로 저장 완료")
-#
-#
-
 class ImageSaver:
     @staticmethod
     def save_with_measurements(image, filename, distance=None, top_point=None, bottom_point=None):
