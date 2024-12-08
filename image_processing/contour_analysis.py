@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import pytesseract
 
+
 class ContourAnalyzer:
     @staticmethod
     def detect_dotted_circle(edges):
@@ -13,7 +14,7 @@ class ContourAnalyzer:
             param1=50,
             param2=25,
             minRadius=150,
-            maxRadius=400
+            maxRadius=400,
         )
 
         if circles is not None:
@@ -33,20 +34,22 @@ class ContourAnalyzer:
         _, thresh = cv2.threshold(blurred, 220, 255, cv2.THRESH_BINARY)
 
         # 윤곽선 검출
-        contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        contours, _ = cv2.findContours(
+            thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
+        )
 
         # 각 윤곽선의 점들을 저장할 리스트
         all_points = []
 
         for contour in contours:
-                # 면적이 너무 작은 윤곽선 제외
-                if cv2.contourArea(contour) > 100:
-                        # 윤곽선의 모든 점을 추가
-                        points = contour.reshape(-1, 2)
-                        all_points.extend(points)
+            # 면적이 너무 작은 윤곽선 제외
+            if cv2.contourArea(contour) > 100:
+                # 윤곽선의 모든 점을 추가
+                points = contour.reshape(-1, 2)
+                all_points.extend(points)
 
         if not all_points:
-                return None, None
+            return None, None
 
         # numpy 배열로 변환
         points = np.array(all_points)
@@ -56,11 +59,13 @@ class ContourAnalyzer:
         points = points[sorted_indices]
 
         n = len(points)
-        top_points = points[:n//10]
-        bottom_points = points[-n//2:][:2]
+        top_points = points[: n // 10]
+        bottom_points = points[-n // 2 :][:2]
 
         # 가장 밝은 점 선택
         top_point = top_points[np.argmax(gray[top_points[:, 1], top_points[:, 0]])]
-        bottom_point = bottom_points[np.argmax(gray[bottom_points[:, 1], bottom_points[:, 0]])]
+        bottom_point = bottom_points[
+            np.argmax(gray[bottom_points[:, 1], bottom_points[:, 0]])
+        ]
 
         return top_point, bottom_point

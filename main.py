@@ -3,6 +3,7 @@ from image_processing.read_image import ImageReader
 from ultrasound_processor import UltrasoundImageProcessor
 from visualization.display import Display
 
+
 def main():
     processor = UltrasoundImageProcessor()
     image_path = "image7.jpg"
@@ -22,6 +23,7 @@ def main():
 
     # 결과 표시
     Display.show_result(result, distance)
+
 
 if __name__ == "__main__":
     main()

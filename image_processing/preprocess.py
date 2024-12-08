@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 
+
 class ImagePreprocessor:
     @staticmethod
     def convert_to_gray(image):
@@ -13,15 +14,16 @@ class ImagePreprocessor:
 
         return thresh
 
-
     @staticmethod
     def preprocess_image(image):
-        clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8,8))
-        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) if len(image.shape) == 3 else image
+        clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8, 8))
+        gray = (
+            cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) if len(image.shape) == 3 else image
+        )
         gray = clahe.apply(gray)
         filtered = cv2.bilateralFilter(gray, 11, 17, 17)
         edges = cv2.Canny(filtered, 30, 150)
-        kernel = np.ones((3,3), np.uint8)
+        kernel = np.ones((3, 3), np.uint8)
         edges = cv2.dilate(edges, kernel, iterations=1)
 
         return edges
