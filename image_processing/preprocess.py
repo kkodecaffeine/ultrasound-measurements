@@ -4,12 +4,33 @@ import numpy as np
 
 class ImagePreprocessor:
     @staticmethod
-    def convert_to_gray(image):
-        return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    def convert_to_gray(param_image):
+        # 그레이스케일 변환
+        return cv2.cvtColor(param_image, cv2.COLOR_BGR2GRAY)
 
     @staticmethod
-    def apply_threshold(gray_image, threshold=220):
-        blurred = cv2.GaussianBlur(gray_image, (5, 5), 0)
+    def blur_with_gaussian(param_image):
+        blurred = cv2.GaussianBlur(param_image, (5, 5), 0)
+        return blurred
+
+    @staticmethod
+    def convert_to_binary(
+        param_image, threshold: float = 220, maximum_val: float = 255
+    ):
+        # 하얀색 테두리 검출을 위한 임계값 처리
+        _, binary = cv2.threshold(
+            param_image, threshold, maximum_val, cv2.THRESH_BINARY
+        )
+        return binary
+
+    @staticmethod
+    def detect_edges(param_image, threshold1: float = 30, threshold2: float = 150):
+        # 엣지 검출
+        return cv2.Canny(param_image, threshold1, threshold2, apertureSize=3)
+
+    @staticmethod
+    def apply_threshold(param_image, threshold=220):
+        blurred = cv2.GaussianBlur(param_image, (5, 5), 0)
         _, thresh = cv2.threshold(blurred, threshold, 255, cv2.THRESH_BINARY)
 
         return thresh

@@ -1,18 +1,27 @@
+from typing import Any
+
 import cv2
 import numpy as np
 
 
 class ScaleCalculator:
     @staticmethod
+    def measure_scale_distance(tick_positions):
+        # 각 스케일바 간의 거리 측정
+        spacings = np.diff(tick_positions)
+        return spacings
+
+    @staticmethod
     def calculate_distance(point1, point2):
         return np.sqrt((point2[0] - point1[0]) ** 2 + (point2[1] - point1[1]) ** 2)
 
     @staticmethod
-    def measure_bpd(image):
-        result = image.copy()
-        from .contour_analysis import ContourAnalyzer
-
-        top_point, bottom_point = ContourAnalyzer.find_vertical_skull_boundaries(image)
+    def measure_bpd(
+        param_image,
+        top_point: tuple[Any, Any] | tuple[Any, None],
+        bottom_point: tuple[Any, Any] | tuple[Any, None],
+    ):
+        result = param_image.copy()
 
         if top_point is not None and bottom_point is not None:
             # 거리 계산
