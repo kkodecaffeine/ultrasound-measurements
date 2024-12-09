@@ -1,4 +1,4 @@
-from image_processing.calculate_scale import ScaleCalculator
+from image_processing.calculate_bpd import ScaleCalculator
 from image_processing.contour_analysis import ContourAnalyzer
 from image_processing.read_image import ImageReader
 from ultrasound_processor import UltrasoundImageProcessor
