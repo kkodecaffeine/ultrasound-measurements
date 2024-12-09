@@ -13,7 +13,7 @@ class UltrasoundImageProcessor:
         padding=20,
         min_radius=50,
         max_radius=200,
-        max_attempts=5,
+        max_attempts=10,
     ):
         """
         초음파 이미지를 처리하여 점선 원을 검출하고, 마스킹된 이미지를 저장한다
