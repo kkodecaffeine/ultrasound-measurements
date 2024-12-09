@@ -10,6 +10,22 @@ class ContourAnalyzer:
         min_radius: int = 50,
         max_radius: int = 200,
     ):
+        """
+        두개골 원형 검출을 위한 HoughCircles 함수
+
+        Args:
+            edges: 엣지 검출된 이미지
+            min_radius: 최소 반지름 (기본값: 50)
+            max_radius: 최대 반지름 (기본값: 200)
+
+        param2:
+            값이 작을수록 더 많은 원이 검출됨 (거짓 원도 많이 검출될 수 있음)
+            값이 크면 더 확실한 원만 검출됨
+            일반적으로 잘 노출되고 대비가 좋은 이미지의 경우 300까지도 설정 가능
+
+        Returns:
+            검출된 원의 중심점과 반지름 (x, y, r) 또는 None
+        """
         circles = cv2.HoughCircles(
             edges,
             cv2.HOUGH_GRADIENT,
