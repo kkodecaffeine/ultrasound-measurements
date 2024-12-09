@@ -43,7 +43,7 @@ class ImagePreprocessor:
         )
         gray = clahe.apply(gray)
         filtered = cv2.bilateralFilter(gray, 11, 17, 17)
-        edges = cv2.Canny(filtered, 30, 150)
+        edges = cv2.Canny(filtered, 30, 180)
         kernel = np.ones((3, 3), np.uint8)
         edges = cv2.dilate(edges, kernel, iterations=1)
 
