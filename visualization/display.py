@@ -11,4 +11,4 @@ class Display:
             cv2.waitKey(0)
             cv2.destroyAllWindows()
         else:
-            print("두개골 경계를 찾을 수 없습니다.")
+            print("두개골 경계를 찾을 수 없습니다")
