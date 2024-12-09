@@ -33,19 +33,19 @@ class ContourAnalyzer:
             param_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
         )
 
-        all_points = []
+        skull_boundary_points = []
         for contour in contours:
             # 면적이 너무 작은 윤곽선 제외
-            if cv2.contourArea(contour) > 100:
+            if cv2.contourArea(contour) > 10:
                 # 윤곽선의 모든 점을 추가
                 points = contour.reshape(-1, 2)
-                all_points.extend(points)
+                skull_boundary_points.extend(points)
 
-        if not all_points:
+        if not skull_boundary_points:
             return None, None
 
         # numpy 배열로 변환
-        points = np.array(all_points)
+        points = np.array(skull_boundary_points)
 
         # y 좌표로 정렬
         sorted_indices = np.argsort(points[:, 1])
