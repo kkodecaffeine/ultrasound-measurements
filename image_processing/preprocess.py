@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import pytesseract
 
 
 class ImagePreprocessor:
@@ -12,6 +13,25 @@ class ImagePreprocessor:
     def blur_with_gaussian(param_image):
         blurred = cv2.GaussianBlur(param_image, (5, 5), 0)
         return blurred
+
+    @staticmethod
+    def blur_text_regions(param_image, param_gray_image):
+        # 텍스트 영역을 블러 처리하는 함수
+        boxes = pytesseract.image_to_boxes(param_gray_image)
+
+        # 각 검출된 텍스트 영역을 블러 처리
+        for b in boxes.splitlines():
+            b = b.split()
+            x, y, w, h = int(b[1]), int(b[2]), int(b[3]), int(b[4])
+            y = param_image.shape[0] - y  # OpenCV와 Tesseract 의 y 좌표는 반대 방향
+            h = param_image.shape[0] - h
+
+            # 블러 처리
+            roi = param_image[h:y, x:w]
+            roi = cv2.GaussianBlur(roi, (25, 25), 50)
+            param_image[h:y, x:w] = roi
+
+        return param_image
 
     @staticmethod
     def convert_to_binary(
