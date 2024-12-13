@@ -3,7 +3,7 @@ import numpy as np
 import pytesseract
 
 
-class ContourAnalyzer:
+class ContourSkull:
     @staticmethod
     def detect_dotted_circle(
         edges,
