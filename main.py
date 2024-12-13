@@ -1,5 +1,6 @@
 from image_processing.calculate_bpd import ScaleCalculator
-from image_processing.contour_analysis import ContourAnalyzer
+from image_processing.contour_scalebar import ContourScaleBar
+from image_processing.contour_skull import ContourSkull
 from image_processing.read_image import ImageReader
 from ultrasound_processor import UltrasoundImageProcessor
 from image_processing.preprocess import ImagePreprocessor
@@ -18,7 +19,7 @@ def main():
     binary = preprocessor.convert_to_binary(blurred_image)
 
     # BPD 측정
-    top_point, bottom_point = ContourAnalyzer.find_skull_boundaries(binary, gray_image)
+    top_point, bottom_point = ContourSkull.find_skull_boundaries(binary, gray_image)
     result, distance = ScaleCalculator.measure_bpd(
         processed_image, top_point, bottom_point
     )
