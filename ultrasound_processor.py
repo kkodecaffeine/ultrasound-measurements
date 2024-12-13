@@ -45,7 +45,7 @@ class UltrasoundImageProcessor:
                 return masked_image
 
             # Increment radius range and retry
-            min_radius += 50
+            min_radius += 25
             max_radius += 100
             print(f"attempt {attempt + 1}: circle not detected")
 
